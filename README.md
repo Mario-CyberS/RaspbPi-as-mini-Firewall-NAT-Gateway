@@ -214,9 +214,7 @@ Fast Startup breaks Wake-on-LAN on a lot of machines by default.
 Steps:
 - Go to Control Panel → Hardware and Sound → Power Options → Choose what the power buttons do 
 - Click "Change settings that are currently unavailable"
-- Under Shutdown settings, UNCHECK:
-
-Turn on fast startup (recommended)
+- Under Shutdown settings, UNCHECK: Turn on fast startup (recommended)
 
 - Next do these in the Advanced Tab:
 
