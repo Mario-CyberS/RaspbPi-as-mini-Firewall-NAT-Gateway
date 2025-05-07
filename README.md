@@ -233,7 +233,7 @@ Launch Microsoft Remote Desktop on your mac and you should be able to connect to
 
 ---
 
-## 🔒 Optional: Lock Down PC Traffic  
+## Optional: Lock Down PC Traffic  
 
 Example, allow only RDP, block everything else from PC:
 ```bash
@@ -245,7 +245,7 @@ Or block known telemetry IPs/ranges from PC.
 
 ---
 
-## ✅ Final Network Topology
+## Final Network Topology
 
 ```bash
                       +------------------------------+
