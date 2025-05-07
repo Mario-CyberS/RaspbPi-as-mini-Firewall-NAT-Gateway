@@ -81,7 +81,8 @@ If you have unrestrictive wifi then no need for a travel router.
 Then go to the machines section and add the relay-node tag to your pi device. 
 - Click the 3 dots ⋮ next to your Pi
 - Click Edit tags
-- Set to: tag:relay-node
+- Set to: tag: relay-node
+
 Note: the home tag access is to allow my mac access to my Windows PC.
 
 ---
