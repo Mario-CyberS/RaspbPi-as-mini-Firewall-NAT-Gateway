@@ -221,8 +221,11 @@ Turn on fast startup (recommended)
 - Next do these in the Advanced Tab:
 
 Wake on Magic Packet: Enabled
+
 Wake on Pattern Match: Enabled
+
 Shutdown Wake-On-LAN: Enabled
+
 Low Power Idle: Disabled (if present)
 
 ---
