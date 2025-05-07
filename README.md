@@ -89,6 +89,7 @@ Note: the home tag access is to allow my mac access to my Windows PC.
 
 ## Step 3: Install & Configure DHCP + NAT  
 Run on: Raspberry Pi
+
 Install dhcpcd:
 ```bash
 which dhcpcd  # If missing:
