@@ -1,4 +1,4 @@
-# Raspberry Pi as Mini Firewall + NAT Gateway for Tailscale RDP Access  
+# Raspberry Pi as Mini Firewall + NAT + WoL Gateway for Tailscale RDP Access  
 This project demonstrates how to use a **Raspberry Pi** as a **firewall and NAT gateway**, allowing a **MacBook to remotely wake and access a Windows PC** via **Tailscale**, while routing all PC internet traffic through the Pi. The setup is designed to work even on captive portal Wi-Fi networks via a travel router.
 
 ---
