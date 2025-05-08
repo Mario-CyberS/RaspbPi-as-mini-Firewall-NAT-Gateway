@@ -113,6 +113,16 @@ sudo systemctl restart dhcpcd
 sudo systemctl status dhcpcd 
 ip a  # Verify eth1 shows 192.***.**.1/24
 ```
+If you dont see the proper static IP, run this on Pi:
+```bash
+sudo ip addr flush dev eth1 sudo ip addr add 192.***.**.1/24 dev eth1
+```
+Then confirm:
+```bash
+ip a
+```
+You should now see:
+eth1: inet 192.***.**.1/24
 
 ---
 
@@ -189,7 +199,7 @@ Security Impact:
 This is safe because you’re only re-enabling the Windows built-in RDP rules — you're not creating new loose ports.
 However, always ensure you're connecting through Tailscale IP only, not allowing public internet access.
 
-### Set Up Wake-on-LAN over Tailscale
+### Set Up Wake-on-LAN on PC
 Enable Wake-on-LAN in BIOS:
 - Reboot your Windows PC
 - Enter BIOS Setup
@@ -228,14 +238,37 @@ Low Power Idle: Disabled (if present)
 
 ---
 
-## Step 7: Test Wake + RDP from Mac  
-Put the PC to sleep then ssh into your Pi from your mac terminal
-Then from Terminal:
+## Step 7: Finish WoL Set-up on Pi & Test Wake + RDP from Mac  
+ssh into your Pi from your mac and run these commands:
+
+1. Install wakeonlan on the Pi
+Run this:
 ```bash
-ping <PC-Tailscale-IP>
+sudo apt update
+sudo apt install wakeonlan -y
 ```
-PC should wake from sleep.
-Launch Microsoft Remote Desktop on your mac and you should be able to connect to your PC!
+2. Get the PC’s MAC Address
+On your Windows PC (before it sleeps), open PowerShell and run:
+```powershell
+getmac /v
+```
+Find the MAC address of the Ethernet adapter connected to the Pi.
+It will look like: C8-A3-62-C4-81-2A
+Convert it to Linux format (colons instead of dashes):
+```bash
+C8:A3:62:C4:81:2A
+```
+3. On the Pi: Send the Wake Packet
+From your Pi:
+```bash
+wakeonlan C8:A3:62:C4:81:2A
+```
+(Replace with your actual MAC address.)
+
+If everything is configured right on the PC:
+It will wake up immediately
+Within seconds, Tailscale will reconnect
+You can RDP from your Mac again
 
 ---
 
