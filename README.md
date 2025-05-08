@@ -38,16 +38,23 @@ To configure a **remote-accessible NAT gateway firewall** using a Raspberry Pi t
 ## Step 2: Set Up Tailscale on Raspberry Pi  
 
 > ⚠️ Use unrestricted Wi-Fi or a **travel router** if on captive portal.
+> If you have unrestrictive wifi then no need for a travel router.
 
-Configure Travel Router (GL.iNet):
+Configure Travel Router (GL.iNet) on your Phone or Mac:
 1. Connect to router’s Wi-Fi: `GL-XXXX`
 2. Visit: [http://192.168.8.1](http://192.168.8.1)
-3. Go to: `Internet > Repeater`  
-4. Connect to apartment SSID and log in through captive portal
+3. Change default pass to a strong pass (default pass is goodlife for mine)
+4. Go to: `Internet > Repeater` make sure to enable repeater
+5. Connect to apartment SSID and log in through captive portal
 
-On Pi (via SSH or terminal):
+I personally connected my main Wifi router Ethernet to the WAN port on my Travel router, then connect the Pi to a travel router LAN port via another ethernet, then use the USB -> Ethernet Adapter to connect the Pi to PC (USB to Pi then Eth to PC). REMEMBER you still need to do the steps above even if using Ethernet to your Travel router.
+
+On Pi (via mac SSH or monitor+keyboard+terminal):
 ```bash
 sudo raspi-config  # Connect to travel routers SSID (System Options > Wireless LAN)
+```
+No need to do ⬆︎ step if using Ethernet from Travel router to Pi.
+```bash
 sudo apt update && sudo apt upgrade -y
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscaled &
@@ -55,7 +62,6 @@ sudo tailscale up
 tailscale ip -4  # Confirm 100.x.x.x IP
 sudo apt install net-tools iptables iproute2 curl nano -y
 ```
-If you have unrestrictive wifi then no need for a travel router.
 
 ### Add ACLs in Tailscale Admin Panel:
 ```bash
@@ -104,25 +110,26 @@ sudo nano /etc/dhcpcd.conf
 Append:
 ```bash
 interface eth1
-static ip_address=192.***.**.1/24
+static ip_address=192.168.50.1/24
 nohook wpa_supplicant
 ```
 Restart Networking:
 ```bash
 sudo systemctl restart dhcpcd
 sudo systemctl status dhcpcd 
-ip a  # Verify eth1 shows 192.***.**.1/24
+ip a  # Verify eth1 shows 192.168.50.1/24
 ```
-If you dont see the proper static IP, run this on Pi:
+If you dont see the proper static IP at eth1, run this on Pi:
 ```bash
-sudo ip addr flush dev eth1 sudo ip addr add 192.***.**.1/24 dev eth1
+sudo ip addr flush dev eth1
+sudo ip addr add 192.168.50.1/24 dev eth1
 ```
 Then confirm:
 ```bash
 ip a
 ```
 You should now see:
-eth1: inet 192.***.**.1/24
+eth1: inet 192.168.50.1/24
 
 ---
 
@@ -131,11 +138,13 @@ Run on: Raspberry Pi
 ```bash
 echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
-
+```
+```bash
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
 sudo iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
-
+```
+```bash
 sudo apt install iptables-persistent -y
 sudo netfilter-persistent save
 ```
@@ -151,7 +160,7 @@ sudo nano /etc/dnsmasq.conf
 Append:
 ```conf
 interface=eth1
-dhcp-range=192.***.**.10,192.***.**.100,12h
+dhcp-range=192.168.50.10,192.168.50.100,12h
 ```
 Restart:
 ```bash
@@ -163,16 +172,7 @@ Now your Windows PC (connected to Pi via Ethernet)
 
 ## Step 6: Configure Windows PC  
 
-Connect Ethernet to Pi
-Set PC IP via DHCP or manually:
-  - IP: `192.168.50.10`
-  - Gateway: `192.168.50.1`
-Test internet access and RDP
-Enable:
-  - Remote Desktop (Settings > System > Remote Desktop)
-  - Wake-on-LAN in BIOS/UEFI
-  - Make Firewall Rule persistent
-  - And we'll make some other critical changes below
+Make all the following changes to your PC below (Windows 11 Pro)
 
 ### Make the Rule Persistent and Force it ON at Boot
 You can create a Startup Task that automatically runs Enable-NetFirewallRule each time your PC boots up.
