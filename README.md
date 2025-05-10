@@ -272,12 +272,30 @@ You can RDP from your Mac again
 
 ---
 
-## Optional: Lock Down PC Traffic  
+## OPTIONAL: Lock Down PC Traffic Using Firewall (iptables)
 
-Example, allow only RDP, block everything else from PC:
+Run on: Raspberry Pi
+
+Apply the Pi Firewall Rules (to only allow RDP, web, and DNS):
 ```bash
+# Allow RDP from the PC to the internet
 sudo iptables -A FORWARD -i eth1 -p tcp --dport 3389 -j ACCEPT
+
+# Allow DNS (UDP and TCP, for compatibility)
+sudo iptables -A FORWARD -i eth1 -p udp --dport 53 -j ACCEPT
+sudo iptables -A FORWARD -i eth1 -p tcp --dport 53 -j ACCEPT
+
+# Allow HTTP and HTTPS (web browsing + Windows/app updates)
+sudo iptables -A FORWARD -i eth1 -p tcp --dport 80 -j ACCEPT
+sudo iptables -A FORWARD -i eth1 -p tcp --dport 443 -j ACCEPT
+
+# Allow responses (stateful traffic handling)
+sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Drop everything else from the PC
 sudo iptables -A FORWARD -i eth1 -j DROP
+
+# Save the rules to survive reboot
 sudo netfilter-persistent save
 ```
 Or block known telemetry IPs/ranges from PC.
