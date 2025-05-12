@@ -174,7 +174,7 @@ Now your Windows PC (connected to Pi via Ethernet)
 
 Make all the following changes to your PC below (Windows 11 Pro)
 
-### Make the Rule Persistent and Force it ON at Boot
+### Make the Firewall Rule Persistent and Force it ON at Boot
 You can create a Startup Task that automatically runs Enable-NetFirewallRule each time your PC boots up.
 1. Open Task Scheduler
 2. Click Create Task (not "Basic Task")
