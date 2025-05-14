@@ -323,15 +323,15 @@ Or block known telemetry IPs/ranges from PC.
 
 ```bash
                       +------------------------------+
-                      |         Your MacBook         |
-                      | (Tailscale, RDP into PC & Pi)|
-                      +-------------+----------------+
-                                    |
-                             Tailscale Encrypted Mesh
-                                    |
-         +--------------------------+-------------------------+
-         |                                                    |
-   +-----v-----+ eth0                                  +------v--------+
+                      |         Your MacBook         | -------|
+                      | (Tailscale, RDP into PC & Pi)|        |
+                      +-------------+----------------+        |
+                                    |                         |  Wifi connection (If local & wanted)
+                             Tailscale Encrypted Mesh         |
+                                    |                         |
+         +--------------------------+                         |
+         |                                                    +
+   +-----v-----+ eth0                                  +----------------+
    |             |<---------LAN--------+               |                |
    |  Pi WOL/NAT/|                     |               |  GL.iNet Travel|
    | Firewall + Tailscale              |               |  Router (WISP) | <---WAN eth Internet Access
