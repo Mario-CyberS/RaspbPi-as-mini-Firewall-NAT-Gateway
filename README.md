@@ -260,8 +260,25 @@ C8:A3:62:C4:81:2A
 ```
 3. On the Pi: Send the Wake Packet
 From your Pi:
+but first find the broadcast address for the PC subnet:
+
+-i 192.168.50.255
+This is the broadcast address for the subnet my PC is on.
+
+I'm are using 192.168.50.0/24 for the Pi-to-PC network.
+
+The broadcast address for that subnet is always .255, so:
 ```bash
-wakeonlan C8:A3:62:C4:81:2A
+192.168.50.255 = "broadcast to all devices on the Pi's LAN segment"
+```
+This ensures the packet is sent to all devices, and the correct NIC (on the PC) will wake when it sees its MAC address in the packet.
+
+🔎 If unsure of broadcast IP:
+Run 'ip a' on the Pi and check the subnet for eth1 (usually 192.168.50.1/24 → broadcast = .255)
+
+This is how the full command from Pi to PC should be formated:
+```bash
+wakeonlan -i 192.168.50.255 C8:A3:62:C4:81:2A
 ```
 (Replace with your actual MAC address.)
 
