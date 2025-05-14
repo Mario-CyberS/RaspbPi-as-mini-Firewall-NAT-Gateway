@@ -332,16 +332,16 @@ Or block known telemetry IPs/ranges from PC.
          +--------------------------+-------------------------+
          |                                                    |
    +-----v-----+ eth0                                  +------v--------+
-   |           |<---------LAN----------+               |                |
-   |  Pi NAT/  |                       |               |  GL.iNet Travel|
-   | Firewall + Tailscale              |               |  Router (WISP) |
-   +-----+-----+                       |               |  (Captive Wi-Fi|
-         | eth1                        +---------------+  Auth'd router)|
+   |             |<---------LAN--------+               |                |
+   |  Pi WOL/NAT/|                     |               |  GL.iNet Travel|
+   | Firewall + Tailscale              |               |  Router (WISP) | <---WAN eth Internet Access
+   +-----+-----+                       |               |  (Captive Wi-Fi| 
+         | eth1                        +------LAN------+  Auth'd router)|
          v                                             +----------------+
 +--------|-------------------------------------------------------------+
 |        |       Your Windows PC (Ethernet to Pi eth1)                 |
-|        +--> IP: 192.***.**.10                                        |
-|        +--> Gateway: 192.***.**.1 (Raspberry Pi)                     |
+|        +--> IP: 192.168.50.10                                        |
+|        +--> Gateway: 192.168.50.1 (Raspberry Pi)                     |
 |        +--> Tailscale Enabled ✅                                     |
 |        +--> RDP & Wake-on-LAN Enabled ✅                             |
 +----------------------------------------------------------------------+
