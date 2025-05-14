@@ -289,7 +289,7 @@ You can RDP from your Mac again
 
 ---
 
-## OPTIONAL: Lock Down PC Traffic Using Firewall (iptables)
+## SHOULD DO: Lock Down PC Traffic Using Firewall (iptables)
 
 Run on: Raspberry Pi
 
