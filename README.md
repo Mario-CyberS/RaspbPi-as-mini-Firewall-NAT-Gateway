@@ -239,7 +239,7 @@ Low Power Idle: Disabled (if present)
 ---
 
 ## Step 7: Finish WoL Set-up on Pi & Test Wake + RDP from Mac  
-ssh into your Pi from your mac and run these commands:
+ssh into your Pi from your mac and run these commands (Assuming your mac is already connected to same Tailscale VPN & has ACL access):
 
 1. Install wakeonlan on the Pi
 Run this:
