@@ -334,7 +334,7 @@ Or block known telemetry IPs/ranges from PC.
    +-----v-----+ eth0                                  +----------------+
    |             |<---------LAN--------+               |                |
    |  Pi WOL/NAT/|                     |               |  GL.iNet Travel|
-   | Firewall + Tailscale              |               |  Router (WISP) | <---WAN eth Internet Access
+   | Firewall + Tailscale              |               |  Router (WISP) | <--- WAN eth Internet Access ----------------------------------------------------------
    +-----+-----+                       |               |  (Captive Wi-Fi| 
          | eth1                        +------LAN------+  Auth'd router)|
          v                                             +----------------+
