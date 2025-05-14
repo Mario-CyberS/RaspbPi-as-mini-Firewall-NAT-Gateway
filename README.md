@@ -166,7 +166,7 @@ Restart:
 ```bash
 sudo systemctl restart dnsmasq
 ```
-Now your Windows PC (connected to Pi via Ethernet)
+Now your Windows PC is connected to wifi (connected to Pi via Ethernet)
 
 ---
 
