@@ -28,8 +28,8 @@ To configure a **remote-accessible NAT gateway firewall** using a Raspberry Pi t
 2. Select OS: `Raspberry Pi OS Lite (64-bit)`
 3. Set custom options:
    - Hostname: `Raspberrypi`
-   - User: `User` (match Windows PC)
-   - Enable SSH and set Wi-Fi (if needed)
+   - User: `User` 
+   - Enable SSH and set Wi-Fi (if wanted, I will connect later)
 4. Flash SD card
 5. Eject and insert into Pi. Power it on with monitor + keyboard or SSH from mac.
 
